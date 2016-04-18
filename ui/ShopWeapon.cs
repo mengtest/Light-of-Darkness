@@ -1,16 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShopDrug : MonoBehaviour
+public class ShopWeapon : MonoBehaviour
 {
 
-    public static ShopDrug instance;
+    public static ShopWeapon instance;
+    public int[] weaponIdArray;
+    public UIGrid grid;
+    public GameObject weaponItem;
+
     private TweenPosition tween;
     private bool isShow = false;
 
     private GameObject numberDialog;
     private UIInput numberInput;
-    private int buy_id = 0;
+    private int buyId = 0;
 
     void Awake()
     {
@@ -24,7 +28,7 @@ public class ShopDrug : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        InitShopWeapon();
     }
 
     // Update is called once per frame
@@ -37,13 +41,13 @@ public class ShopDrug : MonoBehaviour
     {
         if (isShow == false)
         {
-            tween.PlayForward();
             isShow = true;
+            tween.PlayForward();
         }
         else
         {
-            tween.PlayReverse();
             isShow = false;
+            tween.PlayReverse();
         }
     }
 
@@ -54,51 +58,43 @@ public class ShopDrug : MonoBehaviour
         tween.PlayReverse();
     }
 
-    public void OnBuyId1001()
+
+    //初始化武器商店信息
+    void InitShopWeapon()
     {
-        Buy(1001);
+        foreach (int id in weaponIdArray)
+        {
+            GameObject itemGo = NGUITools.AddChild(grid.gameObject, weaponItem);
+            grid.AddChild(itemGo.transform);
+            itemGo.GetComponent<WeaponItem>().SetId(id);
+        }
     }
 
-    public void OnBuyId1002()
-    {
-        Buy(1002);
-    }
-
-    public void OnBuyId1003()
-    {
-        Buy(1003);
-    }
-
-    void Buy(int id)
-    {
-        ShowNumberDialog();
-        buy_id = id;
-    }
-
-    public void OnOkButtonClick()
+    //OK按钮点击的时候
+    public void OnOKButtonClick()
     {
         int count = int.Parse(numberInput.value);
-        ObjectsInfo info = ObjectsInfo.instance.GetObjectsInfoById(buy_id);
-        int price = info.price_buy;
-        int total = count * price;
+        int price = ObjectsInfo.instance.GetObjectsInfoById(buyId).price_buy;
+        int total = price * count;
 
-        bool success = Inventory.instance.GetCoin(total);
-        if (success)  //购买成功
+        bool success = Inventory.instance.GetCoin(total);  //背包里的钱是否足够
+        if (success)
         {
             if (count > 0)
             {
-                Inventory.instance.GetId(buy_id, count);
+                Inventory.instance.GetId(buyId, count);
             }
         }
-        buy_id = 0;
+        buyId = 0;
         numberInput.value = "0";
         numberDialog.SetActive(false);
     }
 
-    void ShowNumberDialog()  //点击购买按钮
+    public void OnBuyClick(int id)  //点击购买按钮
     {
         numberDialog.SetActive(true);
         numberInput.value = "0";
+        buyId = id;
     }
 
     //点击面板隐藏对话框

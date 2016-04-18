@@ -82,7 +82,7 @@ public class BarNPC : NPC
         if (killCount >= 10)
         {
             //完成任务
-            status.AddCoin(1000);
+            Inventory.instance.GetCoin(1000);
             killCount = 0;
             isInTask = false;
             HideQuest();

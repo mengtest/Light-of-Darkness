@@ -9,10 +9,11 @@ public enum PlayerState
 
 public class PlayerMove : MonoBehaviour
 {
+    private PlayerStatus ps;
 
     public bool isMoving = false;
 
-    public float speed = 3.0f;
+    public int speed = 5;
     public PlayerState state = PlayerState.Idle;
     private PlayDir dir;
     private CharacterController controller;

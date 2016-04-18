@@ -8,13 +8,13 @@ public class InventoryItem : UIDragDropItem
     private int id;
     private bool isHover = false;
 
-    void Awake()
+    new void Awake()
     {
         base.Awake();
         sprite = GetComponent<UISprite>();
     }
 
-    void Update()
+    new void Update()
     {
         base.Update();
         if (isHover)
@@ -60,6 +60,10 @@ public class InventoryItem : UIDragDropItem
                 int num = grid1.num;
                 grid1.SetId(grid2.id, grid2.num);
                 grid2.SetId(id, num);
+            }
+            else if(surface.tag == Tags.shortCut)  //当拖放到快捷栏时
+            {
+                surface.GetComponent<ShortCutGrid>().SetInventory(id);
             }
             else //当拖放到空白的地方时
             { 

@@ -6,7 +6,7 @@ public class MovieCamera : MonoBehaviour
 
     public float speed = 10;
 
-    private float endZ = -20;
+    private float endZ = 50;
 
     // Use this for initialization
     void Start()
