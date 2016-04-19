@@ -1,0 +1,151 @@
+using UnityEngine;
+using System.Collections;
+
+public enum WolfState
+{
+    Idle,
+    Walk,
+    Attack,
+    Death
+}
+
+public class BabyWolf : MonoBehaviour {
+
+    public WolfState state = WolfState.Idle;
+    public string aniname_death;
+    public string aniname_idle;
+    public string aniname_walk;
+    //public string aniname_attack;
+
+    public string aniname_now;
+    private float time = 1f;
+    private float timer = 1f;
+    public float speed = 1;  //小狼的移动速度
+    public int hp = 100;  //小狼的血量
+    public float miss = 0.2f;  //miss的概率
+
+    private bool isAttack = false;
+    public Color normal;
+    private GameObject body;
+
+    public AudioClip miss_sound;
+    private GameObject hudTextFollow;
+    private GameObject hudTextGo;
+    public GameObject hudTextPrefab;
+    private HUDText hudText;
+    private UIFollowTarget followTarget;
+
+    private CharacterController cc;
+
+    void Awake()
+    {
+        aniname_now = aniname_idle;
+        cc = GetComponent<CharacterController>();
+        body = transform.Find("Wolf_Baby").gameObject;
+        normal = body.GetComponent<Renderer>().material.color;
+        hudTextFollow = transform.Find("HUDText").gameObject;
+    }
+
+	// Use this for initialization
+	void Start () {
+        //hudTextGo = (GameObject)Instantiate(hudTextPrefab, Vector3.zero, Quaternion.identity);
+        //hudTextGo.transform.parent = HUDTextParent.instance.gameObject.transform;
+
+        hudTextGo = NGUITools.AddChild(HUDTextParent.instance.gameObject, hudTextPrefab);
+
+        hudText = hudTextGo.GetComponent<HUDText>();
+        followTarget = hudTextGo.GetComponent<UIFollowTarget>();
+        followTarget.target = hudTextFollow.transform;
+        followTarget.gameCamera = Camera.main;
+        followTarget.uiCamera = UICamera.currentCamera;
+    }
+	
+	// Update is called once per frame
+	void Update () {
+	    if(state == WolfState.Death)
+        {
+            //死亡
+            GetComponent<Animation>().CrossFade(aniname_death);
+        }
+        else if (state == WolfState.Death)
+        {
+            //自动攻击状态
+            //GetComponent<Animation>().CrossFade(aniname_death);
+        }
+        else
+        {
+            //巡逻
+            GetComponent<Animation>().CrossFade(aniname_now);
+
+            if (aniname_now == aniname_walk)
+            {
+                cc.SimpleMove(transform.forward * speed);
+            }
+
+            timer += Time.deltaTime;
+            if (timer > time)
+            {
+                //表示计时结束，切换状态
+                timer = 0;
+                RandomState();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))//测试用
+        {
+            TakeDamage(10);
+        }
+    }
+
+    void RandomState()  //随机状态，防止动作死板
+    {
+        int value = Random.Range(0,2);  //0-1之间的数字
+        if (value == 1)
+        {
+            aniname_now = aniname_idle;
+        }
+        else
+        {
+            if (aniname_now != aniname_walk)
+            {
+                transform.Rotate(transform.up * Random.Range(0, 360));  //当状态切换到行走的时候生成新的方向
+            }
+            aniname_now = aniname_walk;
+        }
+    }
+
+    public void TakeDamage(int attack)  //受到伤害
+    {
+        float value = Random.Range(0f, 1f);
+        if (value < miss)
+        {
+            //miss
+            AudioSource.PlayClipAtPoint(miss_sound, transform.position);
+            hudText.Add("Miss", Color.grey,1f);
+        }
+        else
+        {
+            //打中
+            hp -= attack;
+            isAttack = true;
+            StartCoroutine(ShowBodyRed());  //使用协同方法
+            if (hp <= 0)
+            {
+                state = WolfState.Death;
+                Destroy(gameObject, 1);
+            }
+        }
+    }
+
+    IEnumerator ShowBodyRed()
+    {
+        body.GetComponent<Renderer>().material.color = Color.red;
+        yield return new WaitForSeconds(0.5f);
+        body.GetComponent<Renderer>().material.color = normal;
+    }
+
+    void OnDestroy()
+    {
+        Destroy(hudTextGo);
+    }
+}
