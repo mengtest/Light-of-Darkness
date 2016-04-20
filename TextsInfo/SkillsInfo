@@ -1,0 +1,12 @@
+4001,致命一击,skill-02,伤害 200% 单个敌人,SingleTarget,Attack,200,0,5,5,Swordman,1,Enemy,2
+4002,盾牌精通,skill-07,防御 150%,Buff,Def,150,30,10,30,Swordman,3,Self,0
+4003,战嚎,skill-05,攻击力 150% 15秒,Buff,Attack,150,30,15,30,Swordman,3,Self,0
+4004,回旋斩,skill-03,伤害 200% 所有敌人,MultipleTarget,Attack,200,0,10,20,Swordman,6,Self,0
+4005,加速攻击,skill-06,攻击速度 200% 30秒,Buff,AttackSpeed,200,30,20,30,Swordman,8,Self,0
+4006,巨型打击,skill-04,伤害 400% 所有敌人,MultipleTarget,Attack,400,0,20,20,Swordman,10,Position,5
+5001,魔法弹,skill-09,伤害 200% 单个敌人,SingleTarget,Attack,200,0,5,5,Magician,1,Enemy,2
+5002,治疗,skill-13,治愈20HP,Passive,HP,20,0,10,10,Magician,3,Self,0
+5003,恢复魔法,skill-10,魔法恢复20MP,Passive,MP,20,0,10,10,Magician,3,Self,0
+5004,魔法爆炸,skill-05,攻击力 150% 15秒,Buff,Attack,150,30,15,30,Magician,3,Self,0
+5005,加速魔法,skill-12,攻击速度 200% 30秒,Buff,AttackSpeed,200,30,20,30,Magician,8,Self,0
+5006,究极风暴,skill-11,伤害 400% 所有敌人,MultipleTarget,Attack,400,0,20,20,Magician,10,Position,10
