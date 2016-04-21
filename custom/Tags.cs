@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Tags : MonoBehaviour {
@@ -10,4 +10,7 @@ public class Tags : MonoBehaviour {
     public const string inventoryItem = "InventoryItem";
     public const string shortCut = "ShortCut";
     public const string minimap = "Minimap";
+    public const string enemy = "Enemy";
+    public const string head = "Head";
+    public const string status = "Status";
 }
