@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CursorManager : MonoBehaviour {
@@ -32,5 +32,15 @@ public class CursorManager : MonoBehaviour {
     public void SetNPCTalk()
     {
         Cursor.SetCursor(cursor_npcTalk, hotspot, mode);
+    }
+
+    public void SetAttack()
+    {
+        Cursor.SetCursor(cursor_attack, hotspot, mode);
+    }
+
+    public void SetTarget()
+    {
+        Cursor.SetCursor(cursor_lockTarget, hotspot, mode);
     }
 }
