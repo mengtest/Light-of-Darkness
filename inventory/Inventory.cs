@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -133,5 +133,11 @@ public class Inventory : MonoBehaviour {
             bool isSuccess = grid.MinusNumber(count);
             return isSuccess;
         }
+    }
+
+    public void AddCoin(int count)
+    {
+        coinNumber += count;
+        coinNumberLabel.text = coinNumber.ToString();
     }
 }
