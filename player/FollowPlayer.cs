@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 
@@ -18,6 +18,7 @@ public class FollowPlayer : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag(Tags.player).transform;
         transform.LookAt(player.position);
         offsetPosition = transform.position - player.position;
     }
