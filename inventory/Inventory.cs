@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -129,6 +129,12 @@ public class Inventory : MonoBehaviour
     }
 
     public void AddCoin(int count)  //获得金币
+    {
+        coinNumber += count;
+        coinNumberLabel.text = coinNumber.ToString();
+    }
+
+    public void AddCoin(int count)
     {
         coinNumber += count;
         coinNumberLabel.text = coinNumber.ToString();

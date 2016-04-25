@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -64,7 +64,13 @@ public class CharacterCreation : MonoBehaviour
     public void OnOkButtonClick()
     {
         PlayerPrefs.SetInt("SelectedCharacter", selectIndex);  //存储选择的角色
+<<<<<<< HEAD
         PlayerPrefs.SetString("Name", nameInput.value);  //存储输入的名字
         SceneManager.LoadScene(2);  //加载下一个场景
+=======
+        PlayerPrefs.SetString("name", nameInput.value);  //存储输入的名字
+        //加载下一个场景
+        SceneManager.LoadScene(2);
+>>>>>>> fdb802c8a5058c1a581959e554ff1feedb68e464
     }
 }

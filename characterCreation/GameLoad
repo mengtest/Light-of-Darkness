@@ -1,0 +1,36 @@
+using UnityEngine;
+using System.Collections;
+
+public class GameLoad : MonoBehaviour {
+
+    public GameObject magicianPrefab;
+    public GameObject swordmanPrefab;
+
+    void Awake()
+    { 
+        int selectIndex = PlayerPrefs.GetInt("SelectedCharacter");  //获取存储选择的角色
+        string name = PlayerPrefs.GetString("name");  //获取存储输入的名字
+
+
+        GameObject go = null;
+        if (selectIndex == 0)
+        {
+            go = Instantiate(magicianPrefab);
+        }
+        else if(selectIndex == 1)
+        {
+            go = Instantiate(swordmanPrefab);
+        }
+        go.GetComponent<PlayerStatus>().name= name;
+    }
+
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+}
