@@ -20,7 +20,7 @@ public class InventoryItem : UIDragDropItem
         if (isHover)
         {
             ItemDescribe.instance.Show(id);
-            if(Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1))
             {
                 bool success = Equipment.instance.Dress(id);
                 if (success)
@@ -40,7 +40,7 @@ public class InventoryItem : UIDragDropItem
             if (surface.tag == Tags.inventoryItemGrid)  //当拖放到空格子里
             {
                 if (surface == transform.parent.gameObject)  //当拖动到自己的格子里
-                {   
+                {
                 }
                 else
                 {
@@ -61,12 +61,12 @@ public class InventoryItem : UIDragDropItem
                 grid1.SetId(grid2.id, grid2.num);
                 grid2.SetId(id, num);
             }
-            else if(surface.tag == Tags.shortCut)  //当拖放到快捷栏时
+            else if (surface.tag == Tags.shortCut)  //当拖放到快捷栏时
             {
                 surface.GetComponent<ShortCutGrid>().SetInventory(id);
             }
             else //当拖放到空白的地方时
-            { 
+            {
             }
 
             ResetPosition();
@@ -83,13 +83,13 @@ public class InventoryItem : UIDragDropItem
         sprite.spriteName = info.name;
     }
 
-    public void SetIconName(int id,string icon_name)
+    public void SetIconName(int id, string icon_name)
     {
         this.id = id;
         sprite.spriteName = icon_name;
     }
 
-    void ResetPosition()
+    void ResetPosition()  //复位
     {
         transform.localPosition = Vector3.zero;
     }

@@ -3,9 +3,10 @@ using System.Collections;
 
 public class Status : MonoBehaviour
 {
-
     public static Status instance;
+
     private PlayerStatus ps;
+    private PlayerMove move;  //用来改变角色移动速度
 
     private TweenPosition tween;
     private bool isShow = false;
@@ -35,13 +36,14 @@ public class Status : MonoBehaviour
         defButtonGo = transform.Find("def_plus").gameObject;
         speedButtonGo = transform.Find("speed_plus").gameObject;
 
-        ps = GameObject.FindGameObjectWithTag(Tags.player).GetComponent<PlayerStatus>();
+        
     }
 
     // Use this for initialization
     void Start()
     {
-
+        ps = GameObject.FindGameObjectWithTag(Tags.player).GetComponent<PlayerStatus>();
+        move = GameObject.FindGameObjectWithTag(Tags.player).GetComponent<PlayerMove>();
     }
 
     // Update is called once per frame
@@ -77,6 +79,17 @@ public class Status : MonoBehaviour
             "防御 = " + (ps.def + ps.def_plus) + "  " +
             "速度 = " + (ps.speed + ps.speed_plus);
 
+        float speed = (ps.speed+ps.speed_plus)*0.2f;  //乘以0.2，防止速度太快
+        if(speed<4)
+        {
+            speed = 4;
+        }
+        if (speed>10)
+        {
+            speed = 10;
+        }
+        move.speed = speed;  //控制好速度之后更新速度
+
         if (ps.remain_point > 0)
         {
             attackButtonGo.SetActive(true);
@@ -93,7 +106,7 @@ public class Status : MonoBehaviour
 
     public void OnAttackPlusClick()
     {
-        bool success = ps.GetPoint();
+        bool success = ps.CostPoint();
         if (success)
         {
             ps.attack_plus++;
@@ -103,7 +116,7 @@ public class Status : MonoBehaviour
 
     public void OnDefPlusClick()
     {
-        bool success = ps.GetPoint();
+        bool success = ps.CostPoint();
         if (success)
         {
             ps.def_plus++;
@@ -113,7 +126,7 @@ public class Status : MonoBehaviour
 
     public void OnSpeedPlusClick()
     {
-        bool success = ps.GetPoint();
+        bool success = ps.CostPoint();
         if (success)
         {
             ps.speed_plus++;

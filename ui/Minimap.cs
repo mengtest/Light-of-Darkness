@@ -1,30 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Minimap : MonoBehaviour {
-
+public class Minimap : MonoBehaviour
+{
     private Camera minimapCamera;
 
-    void Awake()
+    // Use this for initialization
+    void Start()
     {
         minimapCamera = GameObject.FindGameObjectWithTag(Tags.minimap).GetComponent<Camera>();
     }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public void OnRoomInClick()  //放大
     {
-        if(minimapCamera.orthographicSize<=1)
+        if (minimapCamera.orthographicSize <= 1)
         {
-            minimapCamera.orthographicSize=1;
+            minimapCamera.orthographicSize = 1;
         }
         else
         {

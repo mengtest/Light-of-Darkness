@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ExpBar : MonoBehaviour
+public class HUDTextParent : MonoBehaviour
 {
-    public static ExpBar instance;
-
-    private UISlider progressBar;
+    public static HUDTextParent instance;
 
     void Awake()
     {
         instance = this;
-        progressBar = GetComponent<UISlider>();
     }
 
     // Use this for initialization
@@ -23,10 +20,5 @@ public class ExpBar : MonoBehaviour
     void Update()
     {
 
-    }
-
-    public void SetValue(float value)
-    {
-        progressBar.value = value;
     }
 }

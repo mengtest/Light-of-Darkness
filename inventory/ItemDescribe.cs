@@ -3,8 +3,8 @@ using System.Collections;
 
 public class ItemDescribe : MonoBehaviour
 {
-
     public static ItemDescribe instance;
+
     private UILabel label;
     private float timer = 0;
 
@@ -107,7 +107,6 @@ public class ItemDescribe : MonoBehaviour
         str += "  攻击值： " + info.attack + "\n\n";
         str += "  防御值： " + info.def + "\n\n";
         str += "  速度值： " + info.speed + "\n\n";
-
         str += "  出售价： " + info.price_sell + "\n\n";
         str += "  购买价： " + info.price_buy + "\n";
         return str;

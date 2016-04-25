@@ -3,8 +3,7 @@ using System.Collections;
 
 public class BarNPC : NPC
 {
-
-    private PlayerStatus status;
+    public static BarNPC instance;
 
     public TweenPosition questTween;
     public UILabel taskLabel;
@@ -15,6 +14,11 @@ public class BarNPC : NPC
     public bool isInTask = false;  //表示是否正在任务
     public int killCount = 0;  //表示任务进度，杀死几只小野狼
 
+    void Awake()
+    {
+        instance = this;
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -24,7 +28,7 @@ public class BarNPC : NPC
     // Update is called once per frame
     void Update()
     {
-        status = GameObject.FindGameObjectWithTag(Tags.player).GetComponent<PlayerStatus>();
+
     }
 
     void OnMouseOver()  //当鼠标位于collider之上的时候，会在每一帧自动调用这个方法
@@ -82,7 +86,7 @@ public class BarNPC : NPC
         if (killCount >= 10)
         {
             //完成任务
-            Inventory.instance.GetCoin(1000);
+            Inventory.instance.AddCoin(1000);
             killCount = 0;
             isInTask = false;
             HideQuest();
@@ -102,5 +106,13 @@ public class BarNPC : NPC
     void HideQuest()
     {
         questTween.PlayReverse();
+    }
+
+    public void OnKillWolf()
+    {
+        if (isInTask)
+        {
+            killCount++;
+        }
     }
 }

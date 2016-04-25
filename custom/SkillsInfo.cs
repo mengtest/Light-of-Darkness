@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 
 //适用角色
 public enum ApplyRole
@@ -38,7 +37,13 @@ public enum ReleaseType
     Position  //指定位置释放
 }
 
-public class SkillsInfo : MonoBehaviour {
+public class SkillsInfo : MonoBehaviour
+{
+    public static SkillsInfo instance;
+
+    public TextAsset skillsInfoList;
+
+    private Dictionary<int, SkillsInfo> skillsInfoDict = new Dictionary<int, SkillsInfo>();
 
     //0 id
     //1 名称
@@ -54,6 +59,9 @@ public class SkillsInfo : MonoBehaviour {
     //11 适用等级
     //12 释放类型
     //13 释放距离
+    //14 特效名称
+    //15 动画名称
+    //16 动画时间
     public int id;
     public string name;
     public string icon_name;
@@ -62,22 +70,15 @@ public class SkillsInfo : MonoBehaviour {
     public ApplyProperty applyProperty;
     public int applyValue;
     public int applyTime;
-    public int hp;
     public int mp;
     public int coldTime;
     public ApplyRole applyRole;
     public int applyLevel;
     public ReleaseType releaseType;
     public float distance;
-
     public string efx_name;
-    public string anitName;
-    public float anitTime = 0;
-
-    public static SkillsInfo instance;
-    public TextAsset skillsInfoList;
-
-    private Dictionary<int, SkillsInfo> skillsInfoDict = new Dictionary<int, SkillsInfo>();
+    public string ani_name;
+    public float ani_time = 0;
 
     void Awake()
     {
@@ -86,32 +87,40 @@ public class SkillsInfo : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public SkillsInfo GetSkillInfoById(int id)
+    {
+        SkillsInfo info = null;
+        skillsInfoDict.TryGetValue(id, out info);
+        return info;
+    }
 
     //初始化技能信息字典
     void InitSkillsInfoDict()
     {
         string text = skillsInfoList.text;
-        string[] skillinfoArray = text.Split('\n');
-        foreach (string skillinfoStr in skillinfoArray)
+        string[] strArray = text.Split('\n');
+        foreach (string str in strArray)
         {
-            string[] pa = skillinfoStr.Split(',');
+            string[] proArray = str.Split(',');
             SkillsInfo info = new SkillsInfo();
-            info.id = int.Parse(pa[0]);
-            info.name = pa[1];
-            info.icon_name = pa[2];
-            info.des = pa[3];
 
+            info.id = int.Parse(proArray[0]);
+            info.name = proArray[1];
+            info.icon_name = proArray[2];
+            info.des = proArray[3];
 
-            string str_applytype = pa[4];
-            switch (str_applytype)
+            switch (proArray[4])
             {
                 case "Passive":
                     info.applyType = ApplyType.Passive;
@@ -122,12 +131,12 @@ public class SkillsInfo : MonoBehaviour {
                 case "SingleTarget":
                     info.applyType = ApplyType.SingleTarget;
                     break;
-                case "MultiTarget":
+                case "MultipleTarget":
                     info.applyType = ApplyType.MultipleTarget;
                     break;
             }
-            string str_applypro = pa[5];
-            switch (str_applypro)
+
+            switch (proArray[5])
             {
                 case "Attack":
                     info.applyProperty = ApplyProperty.Attack;
@@ -148,11 +157,13 @@ public class SkillsInfo : MonoBehaviour {
                     info.applyProperty = ApplyProperty.MP;
                     break;
             }
-            info.applyValue = int.Parse(pa[6]);
-            info.applyTime = int.Parse(pa[7]);
-            info.mp = int.Parse(pa[8]);
-            info.coldTime = int.Parse(pa[9]);
-            switch (pa[10])
+
+            info.applyValue = int.Parse(proArray[6]);
+            info.applyTime = int.Parse(proArray[7]);
+            info.mp = int.Parse(proArray[8]);
+            info.coldTime = int.Parse(proArray[9]);
+
+            switch (proArray[10])
             {
                 case "Swordman":
                     info.applyRole = ApplyRole.Swordman;
@@ -161,8 +172,10 @@ public class SkillsInfo : MonoBehaviour {
                     info.applyRole = ApplyRole.Magician;
                     break;
             }
-            info.applyLevel = int.Parse(pa[11]);
-            switch (pa[12])
+
+            info.applyLevel = int.Parse(proArray[11]);
+
+            switch (proArray[12])
             {
                 case "Self":
                     info.releaseType = ReleaseType.Self;
@@ -174,19 +187,13 @@ public class SkillsInfo : MonoBehaviour {
                     info.releaseType = ReleaseType.Position;
                     break;
             }
-            info.distance = float.Parse(pa[13]);
-            //info.efx_name = pa[14];
-            //info.anitName = pa[15];
-            //info.anitTime = float.Parse(pa[16]);
-            Debug.Log(info.id + info.name);
+
+            info.distance = float.Parse(proArray[13]);
+            info.efx_name = proArray[14];
+            info.ani_name = proArray[15];
+            info.ani_time = float.Parse(proArray[16]);
+
             skillsInfoDict.Add(info.id, info);
         }
-    }
-
-    public SkillsInfo GetSkillInfoById(int id)
-    {
-        SkillsInfo info = null;
-        skillsInfoDict.TryGetValue(id, out info);
-        return info;
     }
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum PlayerState
+public enum ControlWalk
 {
     Moving,
     Idle
@@ -9,36 +9,45 @@ public enum PlayerState
 
 public class PlayerMove : MonoBehaviour
 {
-    private PlayerStatus ps;
-
-    public bool isMoving = false;
-
-    public int speed = 5;
-    public PlayerState state = PlayerState.Idle;
+    public ControlWalk state = ControlWalk.Idle;
     private PlayDir dir;
     private CharacterController controller;
+    private PlayerAttack attack;
+
+    public bool isMoving = false;
+    public float speed = 4f;
 
     // Use this for initialization
     void Start()
     {
         dir = GetComponent<PlayDir>();
         controller = GetComponent<CharacterController>();
+        attack = GetComponent<PlayerAttack>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float distance = Vector3.Distance(transform.position, dir.targetPosition);
-        if (distance > 0.1f)
+        if (attack.state == PlayerState.ControlWalk)
         {
-            isMoving = true;
-            state = PlayerState.Moving;
-            controller.SimpleMove(transform.forward * speed);
+            float distance = Vector3.Distance(transform.position, dir.targetPosition);
+            if (distance > 0.1f)
+            {
+                isMoving = true;
+                state = ControlWalk.Moving;
+                controller.SimpleMove(transform.forward * speed);
+            }
+            else
+            {
+                isMoving = false;
+                state = ControlWalk.Idle;
+            }
         }
-        else
-        {
-            isMoving = false;
-            state = PlayerState.Idle;
-        }
+    }
+
+    public void SimpleMove(Vector3 targetPos)
+    {
+        transform.LookAt(targetPos);
+        controller.SimpleMove(transform.forward * speed);
     }
 }

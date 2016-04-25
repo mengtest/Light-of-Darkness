@@ -3,14 +3,14 @@ using System.Collections;
 
 public class ShopWeapon : MonoBehaviour
 {
-
     public static ShopWeapon instance;
-    public int[] weaponIdArray;
-    public UIGrid grid;
-    public GameObject weaponItem;
 
     private TweenPosition tween;
     private bool isShow = false;
+
+    public int[] weaponIdArray;
+    public UIGrid grid;
+    public GameObject weaponItem;
 
     private GameObject numberDialog;
     private UIInput numberInput;
@@ -77,7 +77,7 @@ public class ShopWeapon : MonoBehaviour
         int price = ObjectsInfo.instance.GetObjectsInfoById(buyId).price_buy;
         int total = price * count;
 
-        bool success = Inventory.instance.GetCoin(total);  //背包里的钱是否足够
+        bool success = Inventory.instance.CostCoin(total);  //背包里的钱是否足够
         if (success)
         {
             if (count > 0)

@@ -3,9 +3,7 @@ using System.Collections;
 
 public class MovieCamera : MonoBehaviour
 {
-
     public float speed = 10;
-
     private float endZ = 50;
 
     // Use this for initialization
@@ -17,8 +15,8 @@ public class MovieCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z < endZ)
-        {//还没有达到目标位置，需要移动
+        if (transform.position.z < endZ)  //还没有达到目标位置，需要移动
+        {
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
     }

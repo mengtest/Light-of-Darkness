@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class CharacterCreation : MonoBehaviour
 {
-
     public GameObject[] characterPrefabs;
     public UIInput nameInput;
     private GameObject[] characterGameObjects;
@@ -18,7 +18,7 @@ public class CharacterCreation : MonoBehaviour
 
         for (int i = 0; i < length; i++)
         {
-            characterGameObjects[i] = (GameObject)GameObject.Instantiate(characterPrefabs[i], transform.position, transform.rotation);
+            characterGameObjects[i] = (GameObject)Instantiate(characterPrefabs[i], transform.position, transform.rotation);
         }
 
         CharacterShow();
@@ -64,6 +64,7 @@ public class CharacterCreation : MonoBehaviour
     public void OnOkButtonClick()
     {
         PlayerPrefs.SetInt("SelectedCharacter", selectIndex);  //存储选择的角色
-        PlayerPrefs.SetString("name", nameInput.value);  //存储输入的名字
+        PlayerPrefs.SetString("Name", nameInput.value);  //存储输入的名字
+        SceneManager.LoadScene(2);  //加载下一个场景
     }
 }

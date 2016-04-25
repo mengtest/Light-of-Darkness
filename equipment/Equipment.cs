@@ -3,11 +3,12 @@ using System.Collections;
 
 public class Equipment : MonoBehaviour
 {
-
     public static Equipment instance;
+
     private TweenPosition tween;
     private bool isShow = false;
 
+    public GameObject equipmentItem;
     private GameObject headgear;
     private GameObject armor;
     private GameObject rightHand;
@@ -16,9 +17,6 @@ public class Equipment : MonoBehaviour
     private GameObject accessory;
 
     private PlayerStatus ps;
-
-    public GameObject equipmentItem;
-
     public int attack = 0;
     public int def = 0;
     public int speed = 0;
@@ -27,6 +25,7 @@ public class Equipment : MonoBehaviour
     {
         instance = this;
         tween = GetComponent<TweenPosition>();
+
         headgear = transform.Find("Headgear").gameObject;
         armor = transform.Find("Armor").gameObject;
         rightHand = transform.Find("Right-Hand").gameObject;
@@ -67,6 +66,7 @@ public class Equipment : MonoBehaviour
     public bool Dress(int id)  //是否穿戴成功
     {
         ObjectsInfo info = ObjectsInfo.instance.GetObjectsInfoById(id);
+
         if (info.type != ObjectsType.Equip)  //穿戴的不是装备
         {
             return false;
@@ -130,34 +130,17 @@ public class Equipment : MonoBehaviour
         return true;
     }
 
-    public void MinusProperty(int id)  //穿戴装备减少属性
+    public void MinusProperty(int id)  //脱下装备减少属性
     {
         ObjectsInfo equipInfo = ObjectsInfo.instance.GetObjectsInfoById(id);
         ps.attack_plus -= equipInfo.attack;
         ps.def_plus -= equipInfo.def;
         ps.speed_plus -= equipInfo.speed;
         Status.instance.StatusShow();
-    } 
+    }
 
-    public void PlusProperty(int id)  //穿戴装备增加属性
+    public void PlusProperty(int id)  //穿上装备增加属性
     {
-        //ps.attack_plus = 0;
-        //ps.def_plus = 0;
-        //ps.speed_plus = 0;
-
-        //EquipmentItem headgearItem = headgear.GetComponentInChildren<EquipmentItem>();
-        //PlusProperty(headgearItem);
-        //EquipmentItem armorItem = armor.GetComponentInChildren<EquipmentItem>();
-        //PlusProperty(armorItem);
-        //EquipmentItem rightHandItem = rightHand.GetComponentInChildren<EquipmentItem>();
-        //PlusProperty(rightHandItem);
-        //EquipmentItem leftHandItem = leftHand.GetComponentInChildren<EquipmentItem>();
-        //PlusProperty(leftHandItem);
-        //EquipmentItem shoeItem = shoe.GetComponentInChildren<EquipmentItem>();
-        //PlusProperty(shoeItem);
-        //EquipmentItem accessoryItem = accessory.GetComponentInChildren<EquipmentItem>();
-        //PlusProperty(accessoryItem);
-
         ObjectsInfo equipInfo = ObjectsInfo.instance.GetObjectsInfoById(id);
         ps.attack_plus += equipInfo.attack;
         ps.def_plus += equipInfo.def;

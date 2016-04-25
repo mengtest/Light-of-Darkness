@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WeaponItem : MonoBehaviour {
-
+public class WeaponItem : MonoBehaviour
+{
     private int id;
     private ObjectsInfo info;
 
@@ -19,15 +19,17 @@ public class WeaponItem : MonoBehaviour {
         price_label = transform.Find("price").GetComponent<UILabel>();
     }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
 
     //通过调用方法实现装备购买列表
@@ -43,11 +45,11 @@ public class WeaponItem : MonoBehaviour {
         {
             effect_label.text = "伤害 +" + info.attack;
         }
-        else if(info.def > 0)
+        else if (info.def > 0)
         {
             effect_label.text = "防御 +" + info.def;
         }
-        else if(info.speed > 0)
+        else if (info.speed > 0)
         {
             effect_label.text = "速度 +" + info.speed;
         }

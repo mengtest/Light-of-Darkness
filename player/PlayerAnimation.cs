@@ -1,24 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
-public class PlayerAnimation : MonoBehaviour {
-
+public class PlayerAnimation : MonoBehaviour
+{
     private PlayerMove move;
+    private PlayerAttack attack;
 
-	// Use this for initialization
-	void Start () {
+    public string aniname_run;
+    public string aniname_idle;
+
+    // Use this for initialization
+    void Start()
+    {
         move = GetComponent<PlayerMove>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (move.state == PlayerState.Moving)
+        attack = GetComponent<PlayerAttack>();
+    }
+
+    // Update is called once per frame
+    void LateUpdate()
+    {
+        if (attack.state == PlayerState.ControlWalk)
         {
-            PlayAnimation("Run");
-        }else if (move.state == PlayerState.Idle)
+            if (move.state == ControlWalk.Moving)
+            {
+                PlayAnimation(aniname_run);
+            }
+            else if (move.state == ControlWalk.Idle)
+            {
+                PlayAnimation(aniname_idle);
+            }
+        }
+        else if (attack.state == PlayerState.NormalAttack)
         {
-            PlayAnimation("Idle");
+            if (attack.attack_state == AttackState.Moving)
+            {
+                PlayAnimation(aniname_run);
+            }
         }
     }
 

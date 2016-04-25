@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShopWeaponNPC : NPC
+public class SavaFile : MonoBehaviour
 {
 
     // Use this for initialization
@@ -16,12 +16,12 @@ public class ShopWeaponNPC : NPC
 
     }
 
-    public void OnMouseOver()
+    void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0))  //显示药品购买列表
+        if (Input.GetMouseButtonDown(0))
         {
             GetComponent<AudioSource>().Play();
-            ShopWeapon.instance.TransformState();
+            SavaMenu.instance.OpenMenu();  //打开存档菜单
         }
     }
 }

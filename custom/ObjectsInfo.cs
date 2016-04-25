@@ -28,7 +28,6 @@ public enum ApplicationType
 
 public class ObjectsInfo : MonoBehaviour
 {
-
     public static ObjectsInfo instance;
 
     public TextAsset objectsInfoList;
@@ -71,7 +70,6 @@ public class ObjectsInfo : MonoBehaviour
     {
         instance = this;
         ReadInfo();
-        //Debug.Log(objectInfoDict.Keys.Count);
     }
 
     // Use this for initialization
@@ -89,9 +87,7 @@ public class ObjectsInfo : MonoBehaviour
     public ObjectsInfo GetObjectsInfoById(int id)
     {
         ObjectsInfo info = null;
-
         objectInfoDict.TryGetValue(id, out info);
-
         return info;
     }
 
@@ -103,8 +99,8 @@ public class ObjectsInfo : MonoBehaviour
         foreach (string str in strArray)
         {
             ObjectsInfo info = new ObjectsInfo();
-            //ObjectsInfo info = GetComponent<ObjectsInfo>();错误
             string[] proArray = str.Split(',');
+
             info.id = int.Parse(proArray[0]);
             info.name = proArray[1];
             info.icon_name = proArray[2];
@@ -124,7 +120,7 @@ public class ObjectsInfo : MonoBehaviour
                     break;
             }
 
-            if(type == ObjectsType.Drug)
+            if (type == ObjectsType.Drug)
             {
                 info.hp = int.Parse(proArray[4]);
                 info.mp = int.Parse(proArray[5]);
@@ -132,9 +128,9 @@ public class ObjectsInfo : MonoBehaviour
                 info.price_buy = int.Parse(proArray[7]);
                 info.type = type;
             }
-            else if(type == ObjectsType.Equip)
+            else if (type == ObjectsType.Equip)
             {
-                info.attack= int.Parse(proArray[4]);
+                info.attack = int.Parse(proArray[4]);
                 info.def = int.Parse(proArray[5]);
                 info.speed = int.Parse(proArray[6]);
                 info.price_sell = int.Parse(proArray[9]);
@@ -178,8 +174,8 @@ public class ObjectsInfo : MonoBehaviour
                         break;
                 }
             }
-            Debug.Log(info.id + info.name);
-            objectInfoDict.Add(info.id, info); //添加到字典中，id为key，可以很方便地根据id查找到物品        
+
+            objectInfoDict.Add(info.id, info); //添加到字典中，id为key，可以很方便地根据id查找到物品
         }
     }
 }

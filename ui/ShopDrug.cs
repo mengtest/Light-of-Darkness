@@ -3,8 +3,8 @@ using System.Collections;
 
 public class ShopDrug : MonoBehaviour
 {
-
     public static ShopDrug instance;
+
     private TweenPosition tween;
     private bool isShow = false;
 
@@ -82,7 +82,7 @@ public class ShopDrug : MonoBehaviour
         int price = info.price_buy;
         int total = count * price;
 
-        bool success = Inventory.instance.GetCoin(total);
+        bool success = Inventory.instance.CostCoin(total);
         if (success)  //购买成功
         {
             if (count > 0)

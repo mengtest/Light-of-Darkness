@@ -3,9 +3,8 @@ using System.Collections;
 
 public class PressAnyKey : MonoBehaviour
 {
-
-    private bool isPressAnyKey = false;  //表示是否有任何键被按下
     private GameObject buttonContainer;
+    private bool isPressAnyKey = false;  //表示是否有任何键被按下
 
     // Use this for initialization
     void Start()

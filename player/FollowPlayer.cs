@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
 public class FollowPlayer : MonoBehaviour
 {
-
     public Transform player;
 
     public float scrollSpeed = 5.0f;
@@ -18,6 +16,7 @@ public class FollowPlayer : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag(Tags.player).transform;
         transform.LookAt(player.position);
         offsetPosition = transform.position - player.position;
     }
@@ -26,10 +25,8 @@ public class FollowPlayer : MonoBehaviour
     void Update()
     {
         transform.position = offsetPosition + player.position;
-        //控制视野的范围
-        ScrollView();
-        //控制视野的旋转
-        RotateView();
+        ScrollView();  //控制视野的范围
+        RotateView();  //控制视野的旋转
     }
 
     void ScrollView()
@@ -37,7 +34,7 @@ public class FollowPlayer : MonoBehaviour
         distance = offsetPosition.magnitude;
         //向前滑动返回正值（拉远视野）
         //向后滑动返回负值（拉近视野）
-        distance += -Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
+        distance -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
         distance = Mathf.Clamp(distance, 2.0f, 18.0f);
         offsetPosition = offsetPosition.normalized * distance;
     }
@@ -56,7 +53,6 @@ public class FollowPlayer : MonoBehaviour
 
         if (isRotating)
         {
-
             transform.RotateAround(player.position, player.up, Input.GetAxis("Mouse X") * rotateSpeed);
             Vector3 originalPosition = transform.position;
             Quaternion originalRotation = transform.rotation;
@@ -64,7 +60,7 @@ public class FollowPlayer : MonoBehaviour
             transform.RotateAround(player.position, transform.right, -Input.GetAxis("Mouse Y") * rotateSpeed);
 
             x = transform.eulerAngles.x;
-            if (x < 10.0f || x > 80.0f)  //当超出范围时将属性归回原来
+            if (x < 10.0f || x > 80.0f)  //当超出范围时将属性改回原来
             {
                 transform.position = originalPosition;
                 transform.rotation = originalRotation;

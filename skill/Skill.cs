@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
-public class Skill : MonoBehaviour {
-
+public class Skill : MonoBehaviour
+{
     public static Skill instance;
+
     private TweenPosition tween;
     private bool isShow = false;
-    private PlayerStatus ps;
 
-    public int[] magicianSkillIdList;
-    public int[] swordmanSkillIdList;
+    private PlayerStatus ps;
 
     public UIGrid grid;
     public GameObject skillItem;
+
+    public int[] magicianSkillIdList;
+    public int[] swordmanSkillIdList;
 
     void Awake()
     {
@@ -21,9 +22,11 @@ public class Skill : MonoBehaviour {
         tween = GetComponent<TweenPosition>();
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         ps = GameObject.FindGameObjectWithTag(Tags.player).GetComponent<PlayerStatus>();
+
         int[] idList = null;
         switch (ps.heroType)
         {
@@ -35,18 +38,19 @@ public class Skill : MonoBehaviour {
                 break;
         }
 
-        foreach(int id in idList)
+        foreach (int id in idList)
         {
             GameObject itemGo = NGUITools.AddChild(grid.gameObject, skillItem);
             grid.AddChild(itemGo.transform);
             itemGo.GetComponent<SkillItem>().SetId(id);
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public void TransformState()
     {
@@ -66,7 +70,7 @@ public class Skill : MonoBehaviour {
     void UpdateShow()
     {
         SkillItem[] items = GetComponentsInChildren<SkillItem>();
-        foreach(SkillItem item in items)
+        foreach (SkillItem item in items)
         {
             item.UpdateShow(ps.level);
         }

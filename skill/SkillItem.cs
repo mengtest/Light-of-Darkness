@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SkillItem : MonoBehaviour {
-
+public class SkillItem : MonoBehaviour
+{
     public int id;
     private SkillsInfo info;
     private UISprite icon_name;
@@ -13,15 +13,17 @@ public class SkillItem : MonoBehaviour {
 
     private GameObject icon_mask;  //技能不可用时的遮罩
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     void InitProperty()
     {
@@ -32,11 +34,10 @@ public class SkillItem : MonoBehaviour {
         mp = transform.Find("property/mp_bg/mp").GetComponent<UILabel>();
 
         icon_mask = transform.Find("icon_mask").gameObject;
-        //icon_mask.SetActive(false);
     }
 
     //通过调用这个方法可以更新显示技能
-    public void  SetId(int id)
+    public void SetId(int id)
     {
         InitProperty();
         this.id = id;
@@ -59,7 +60,7 @@ public class SkillItem : MonoBehaviour {
                 break;
         }
         des.text = info.des;
-        mp.text = info.mp+" MP";
+        mp.text = info.mp + " MP";
     }
 
     public void UpdateShow(int level)
@@ -67,12 +68,12 @@ public class SkillItem : MonoBehaviour {
         if (info.applyLevel <= level) //技能可用
         {
             icon_mask.SetActive(false);
-            icon_name.GetComponent<SkillItemIcon>().enabled = true; 
+            icon_name.GetComponent<SkillItemIcon>().enabled = true;
         }
         else
         {
             icon_mask.SetActive(true);  //技能不可用
-            icon_name.GetComponent<SkillItemIcon>().enabled = false; 
+            icon_name.GetComponent<SkillItemIcon>().enabled = false;
         }
     }
 }

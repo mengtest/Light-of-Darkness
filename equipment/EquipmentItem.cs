@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EquipmentItem : MonoBehaviour {
-
-    private UISprite sprite;
+public class EquipmentItem : MonoBehaviour
+{
     public int id;
+    private UISprite sprite;
     private bool isHover = false;
 
     void Awake()
@@ -12,23 +12,25 @@ public class EquipmentItem : MonoBehaviour {
         sprite = GetComponent<UISprite>();
     }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (isHover)  //当鼠标在这个装备栏之上时，检测鼠标右键的点击
         {
             if (Input.GetMouseButtonDown(1))  //鼠标右键点击，表示卸下装备
             {
-                Inventory.instance.GetId(id);
                 Destroy(gameObject);
+                Inventory.instance.GetId(id);
                 Equipment.instance.MinusProperty(id);
             }
         }
-	}
+    }
 
     public void SetId(int id)
     {
