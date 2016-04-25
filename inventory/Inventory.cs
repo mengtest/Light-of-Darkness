@@ -133,10 +133,4 @@ public class Inventory : MonoBehaviour
         coinNumber += count;
         coinNumberLabel.text = coinNumber.ToString();
     }
-
-    public void AddCoin(int count)
-    {
-        coinNumber += count;
-        coinNumberLabel.text = coinNumber.ToString();
-    }
 }
