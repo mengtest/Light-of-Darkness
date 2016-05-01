@@ -1,12 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
-public class SavaMenu : MonoBehaviour {
-
+public class SavaMenu : MonoBehaviour
+{
     public static SavaMenu instance;
     private TweenPosition tween;
 
-    private PlayerStatus ps;  //playerStatus
+    private PlayerStatus ps;  //记录人物状态
 
     //Level
     //Hp
@@ -21,6 +21,8 @@ public class SavaMenu : MonoBehaviour {
     //Speed_plus
     //Remain_point
     //Exp
+
+    //KillCount
     //Coin
 
     void Awake()
@@ -29,15 +31,17 @@ public class SavaMenu : MonoBehaviour {
         tween = GetComponent<TweenPosition>();
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         ps = GameObject.FindGameObjectWithTag(Tags.player).GetComponent<PlayerStatus>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public void OpenMenu()
     {
@@ -61,12 +65,20 @@ public class SavaMenu : MonoBehaviour {
         PlayerPrefs.SetInt("Def", ps.def);
         PlayerPrefs.SetInt("Def_plus", ps.def_plus);
         PlayerPrefs.SetInt("Speed", ps.speed);
-        PlayerPrefs.SetInt("Speed_plus", ps.speed_plus); 
+        PlayerPrefs.SetInt("Speed_plus", ps.speed_plus);
         PlayerPrefs.SetInt("Remain_point", ps.remain_point);
         PlayerPrefs.SetFloat("Exp", ps.exp);
 
-        PlayerPrefs.SetFloat("Coin", Inventory.instance.coinNumber);
-        Debug.Log("ok");
+        PlayerPrefs.SetInt("KillCount", BarNPC.instance.killCount);
+        if (BarNPC.instance.isInTask)  //正在任务
+        {
+            PlayerPrefs.SetInt("InTask", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("InTask", 0);
+        }
+        PlayerPrefs.SetInt("Coin", Inventory.instance.coinNumber);
 
         tween.PlayReverse();
     }
